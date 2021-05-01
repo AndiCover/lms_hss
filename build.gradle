@@ -1,0 +1,189 @@
+plugins {
+    id 'idea'
+    id 'java'
+    id 'checkstyle'
+    id 'com.github.spotbugs' version '4.7.0'
+    id 'pmd'
+    id 'de.aaschmid.cpd' version '3.2'
+    id 'jacoco'
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://repository.mulesoft.org/nexus/content/repositories/public/"
+    }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_15
+    targetCompatibility = JavaVersion.VERSION_15
+}
+
+spotbugs {
+    effort = "max"
+}
+
+pmd {
+    toolVersion = '6.33.0'
+    ignoreFailures = false
+    ruleSetFiles = files("config/pmd/ruleset.xml")
+    ruleSets = []
+}
+
+cpd {
+    language = 'java'
+    toolVersion = '6.6.0'
+    minimumTokenCount = 100 // approximately 5-10 lines
+}
+
+cpdCheck {
+    reports {
+        text.enabled = false
+        xml.enabled = true
+    }
+    ignoreAnnotations = true
+    source = sourceSets.main.allJava
+}
+
+jacoco {
+    toolVersion = "0.8.6"
+}
+
+sourceSets {
+    jmh {
+        java.srcDirs = ['src/jmh/java']
+        resources.srcDirs = ['src/jmh/resources']
+        compileClasspath += sourceSets.main.runtimeClasspath
+    }
+}
+configurations.jmhImplementation.extendsFrom(configurations.implementation)
+
+dependencies {
+    implementation('com.github.aelstad:keccakj:1.1.0')
+    implementation('com.google.code.findbugs:jsr305:3.0.2')
+    implementation('org.apache.commons:commons-lang3:3.12.0')
+    implementation('commons-io:commons-io:2.8.0')
+    implementation('commons-codec:commons-codec:1.15')
+    implementation('com.google.code.findbugs:annotations:3.0.1')
+
+    testImplementation(platform('org.junit:junit-bom:5.7.1'))
+    testImplementation('org.junit.jupiter:junit-jupiter')
+
+    jmhAnnotationProcessor('org.openjdk.jmh:jmh-generator-annprocess:1.28')
+    jmhImplementation sourceSets.main.output
+    jmhImplementation('org.openjdk.jmh:jmh-core:1.29')
+
+    spotbugsPlugins('com.h3xstream.findsecbugs:findsecbugs-plugin:1.10.1')
+}
+
+task checkstyle {
+    dependsOn 'checkstyleMain'
+    dependsOn 'checkstyleTest'
+    dependsOn 'checkstyleJmh'
+}
+
+task spotbugs {
+    dependsOn 'spotbugsMain'
+    dependsOn 'spotbugsTest'
+    dependsOn 'spotbugsJmh'
+}
+
+task pmd {
+    dependsOn 'pmdMain'
+    dependsOn 'pmdTest'
+    dependsOn 'pmdJmh'
+}
+
+test {
+    useJUnitPlatform()
+    mkdir("build/tmp/test")
+    workingDir = "build/tmp/test"
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+    maxHeapSize = "10g"
+
+    afterTest { descriptor, result ->
+        def totalTime = result.endTime - result.startTime
+        println "Total time of $descriptor.name was $totalTime ms"
+    }
+
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination layout.buildDirectory.dir('jacocoHtml').get().asFile
+    }
+}
+
+tasks.withType(Checkstyle) {
+    reports {
+        xml.enabled false
+        html.enabled true
+    }
+}
+
+spotbugsMain {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+
+spotbugsTest {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+
+tasks.withType(Pmd) {
+    reports {
+        xml.enabled false
+        html.enabled true
+    }
+}
+
+task jmh(type: JavaExec) {
+    description = "Executes JMH performance tests for ${project.name}."
+    main = 'org.openjdk.jmh.Main'
+
+    mkdir("build/tmp/jmh")
+    workingDir = "build/tmp/jmh"
+    maxHeapSize = "16g"
+    minHeapSize = "16g"
+
+    // Setting the classpath like this implicitly creates task dependencies on the 'classes' and 'jmhClasses' tasks.
+    classpath = sourceSets.jmh.runtimeClasspath
+
+    // The results of the full run are stored in build/reports/jmh/result.json
+    def resultFile = new File((File) project.reportsDir, 'jmh/result.json')
+
+    // Run gradlew jmhHelp to see all the options that can be set here
+    args '.*Benchmark'
+    args '-rf', 'json'
+    args '-rff', resultFile
+
+    doFirst {
+        // make sure build/reports/jmh directory exists
+        resultFile.parentFile.mkdirs()
+    }
+}
+
+classes.finalizedBy(jmhClasses)
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-Xlint:unchecked' << '-Xlint:deprecation'
+    if (it.name != 'compileJmhJava') {
+        options.compilerArgs << '-proc:none'
+    }
+}
+
+spotbugsJmh.onlyIf { false }
+pmdJmh.onlyIf { false }
