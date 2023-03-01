@@ -64,7 +64,7 @@ public enum LMOTSType {
         this.p = p;
 
         final int u = (int) Math.ceil(8d * n / w);
-        final int v = (int) Math.ceil((Math.floor(Math.log((2 ^ w - 1) * u)) + 1) / w);
+        final int v = (int) Math.ceil((Math.floor(Math.log(((1 << w) - 1) * u) / Math.log(2)) + 1) / w);
         this.ls = 16 - (v * w);
     }
 

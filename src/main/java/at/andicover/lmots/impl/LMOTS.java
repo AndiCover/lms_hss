@@ -332,16 +332,13 @@ public final class LMOTS {
 
     @Nonnull
     private static byte[] checksum(@Nonnull final byte[] hashedMessage, @Nonnull final LMOTSType parameters) {
-        final byte[] result = new byte[2];
         int sum = 0;
         final int hashIterations = getHashIterations(parameters.getW());
         for (int i = 0; i < (parameters.getN() * 8 / parameters.getW()); i++) {
             sum += hashIterations - coef(hashedMessage, i, parameters.getW(), hashIterations);
         }
         sum = sum << parameters.getLs();
-        result[1] = (byte) ((sum & 0x0000FF00) >> 8);
-        result[0] = (byte) ((sum & 0x000000FF));
-        return result;
+        return intTo2ByteArray(sum);
     }
 
     private static int coef(@Nonnull final byte[] hashedMessage, final int i, final int w, final int hashIterations) {
