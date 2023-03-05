@@ -60,7 +60,9 @@ sourceSets {
 configurations.jmhImplementation.extendsFrom(configurations.implementation)
 
 dependencies {
-    implementation('com.github.aelstad:keccakj:1.1.0')
+    //implementation('com.github.aelstad:keccakj:1.1.0') //not available anymore
+    implementation files('lib/keccakj-1.1.0.jar')
+
     implementation('com.google.code.findbugs:jsr305:3.0.2')
     implementation('org.apache.commons:commons-lang3:3.12.0')
     implementation('commons-io:commons-io:2.8.0')
