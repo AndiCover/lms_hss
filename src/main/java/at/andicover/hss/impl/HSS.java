@@ -13,9 +13,9 @@ import at.andicover.lms.api.LMSType;
 import at.andicover.lms.impl.LMS;
 import at.andicover.util.MathUtil;
 import at.andicover.util.PersistenceUtil;
-import net.jcip.annotations.ThreadSafe;
 
 import javax.annotation.Nonnull;
+import javax.annotation.concurrent.ThreadSafe;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;

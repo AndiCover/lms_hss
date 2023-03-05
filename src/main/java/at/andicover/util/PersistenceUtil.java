@@ -106,7 +106,7 @@ public final class PersistenceUtil {
      */
     @CheckForNull
     @SuppressFBWarnings(value = "PATH_TRAVERSAL_IN", justification = "Consumer should know what he is doing.")
-    @SuppressWarnings("PMD.AvoidFileStream")
+    @SuppressWarnings({"PMD.AvoidFileStream", "PMD.CognitiveComplexity"})
     public static Storable loadKey(@Nonnull final String filename, @Nonnull final Class<?> clazz) {
         try (PipedOutputStream outputStream = new PipedOutputStream();
              FileInputStream in = new FileInputStream(

@@ -11,11 +11,11 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.util.Arrays;
 
 import static at.andicover.lmots.api.LMOTSType.LMOTS_SHA256_N32_W1;
 import static at.andicover.lmots.api.LMOTSType.LMOTS_SHA256_N32_W8;
 import static at.andicover.util.TestUtil.getLmotsTypes;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SuppressWarnings({"PMD.AvoidInstantiatingObjectsInLoops", "PMD.UseAssertEqualsInsteadOfAssertTrue", "PMD.AvoidInstantiatingObjectsInLoops"})
-public final class LMOTSTest {
+final class LMOTSTest {
 
     @Test
     void generatePrivateKeyTest() throws NoSuchAlgorithmException {
@@ -71,7 +71,7 @@ public final class LMOTSTest {
             final LMOTSPrivateKey privateKey = LMOTS.generatePrivateKey(parameters);
             final LMOTSPublicKey publicKey = LMOTS.generatePublicKey(privateKey);
 
-            assertTrue(Arrays.equals(publicKey.getIdentifier(), privateKey.getIdentifier()));
+            assertArrayEquals(publicKey.getIdentifier(), privateKey.getIdentifier());
             assertEquals(publicKey.getQIdentifier(), privateKey.getQIdentifier());
             assertEquals(publicKey.getLmotsType(), privateKey.getLmotsType());
         }
@@ -88,7 +88,7 @@ public final class LMOTSTest {
                 final LMOTSPrivateKey privateKey = LMOTS.generatePrivateKey(parameters, identifier, q);
                 final LMOTSPublicKey publicKey = LMOTS.generatePublicKey(privateKey);
 
-                assertTrue(Arrays.equals(publicKey.getIdentifier(), privateKey.getIdentifier()));
+                assertArrayEquals(publicKey.getIdentifier(), privateKey.getIdentifier());
                 assertEquals(publicKey.getQIdentifier(), privateKey.getQIdentifier());
                 assertEquals(publicKey.getLmotsType(), privateKey.getLmotsType());
             }

@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @SuppressWarnings("PMD.SystemPrintln")
-public final class HSSSignatureImplTest {
+final class HSSSignatureImplTest {
 
     @Test
     void testEqualsAndHashcode() throws NoSuchAlgorithmException {

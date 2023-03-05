@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @SuppressWarnings("PMD.SystemPrintln")
-public final class LMOTSPublicKeyImplTest {
+final class LMOTSPublicKeyImplTest {
 
     @Test
     void testEqualsAndHashcode() {

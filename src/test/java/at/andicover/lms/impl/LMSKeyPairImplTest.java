@@ -10,7 +10,7 @@ import java.security.NoSuchAlgorithmException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-final class LMSKeyPairImplTest {
+class LMSKeyPairImplTest {
 
     @Test
     void testEqualsAndHashcode() throws NoSuchAlgorithmException {

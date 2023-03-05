@@ -17,7 +17,7 @@ import java.security.NoSuchAlgorithmException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public final class HSSKeyPairImplTest {
+final class HSSKeyPairImplTest {
 
     @Test
     void testEqualsAndHashcode() throws NoSuchAlgorithmException {

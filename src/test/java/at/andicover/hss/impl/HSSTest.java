@@ -9,6 +9,7 @@ import at.andicover.lms.api.LMSSignature;
 import at.andicover.lms.api.LMSType;
 import at.andicover.util.PersistenceUtil;
 import at.andicover.util.TestUtil;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -38,7 +39,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SuppressWarnings({"PMD.TooManyMethods", "PMD.UnusedLocalVariable"})
-public final class HSSTest {
+final class HSSTest {
+
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
     @Test
     void generateKeysTest() throws NoSuchAlgorithmException, IOException {
@@ -318,9 +321,9 @@ public final class HSSTest {
     }
 
     @Test
+    @SuppressFBWarnings
     void testSeed() throws NoSuchAlgorithmException, IOException {
-        final SecureRandom secureRandom = new SecureRandom();
-        final byte[] seed = secureRandom.generateSeed(32);
+        final byte[] seed = SECURE_RANDOM.generateSeed(32);
         final HSSKeyPair keyPair =
                 HSS.generateKeys(1, LMS_SHA256_M32_H5, LMOTS_SHA256_N32_W1, Arrays.copyOf(seed, seed.length));
         final HSSKeyPair keyPair2 =

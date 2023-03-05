@@ -26,7 +26,7 @@ import static at.andicover.lms.api.LMSType.LMS_SHAKE_M32_H5;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class LMSTypeTest {
+final class LMSTypeTest {
 
     @Test
     void testLookup() {

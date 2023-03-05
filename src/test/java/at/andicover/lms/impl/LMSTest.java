@@ -16,7 +16,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 
 import static at.andicover.lmots.api.LMOTSType.LMOTS_SHA256_N32_W2;
 import static at.andicover.lmots.api.LMOTSType.LMOTS_SHA256_N32_W8;
@@ -24,6 +23,7 @@ import static at.andicover.lms.api.LMSType.LMS_SHA256_M32_H10;
 import static at.andicover.lms.api.LMSType.LMS_SHA256_M32_H5;
 import static at.andicover.util.TestUtil.getLmotsTypes;
 import static at.andicover.util.TestUtil.getLmsTypes;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SuppressWarnings("PMD.UseAssertEqualsInsteadOfAssertTrue")
-public final class LMSTest {
+final class LMSTest {
 
     @Test
     void generatePrivateKeyTest() throws NoSuchAlgorithmException {
@@ -63,7 +63,7 @@ public final class LMSTest {
                 final LMSPrivateKey privateKey = keyPair.getPrivateKey();
                 final LMSPublicKey publicKey = keyPair.getPublicKey();
 
-                assertTrue(Arrays.equals(publicKey.getIdentifier(), privateKey.getIdentifier()));
+                assertArrayEquals(publicKey.getIdentifier(), privateKey.getIdentifier());
                 assertEquals(publicKey.getLmsType(), privateKey.getLmsType());
                 assertEquals(publicKey.getLmotsType(), privateKey.getLmotsType());
             }
@@ -163,7 +163,8 @@ public final class LMSTest {
     @Test
     void verifyIncorrectTreeSize() throws NoSuchAlgorithmException {
         final LMSKeyPair keyPair = LMS.generateKeys(LMS_SHA256_M32_H5, LMOTS_SHA256_N32_W8);
-        assertThrows(IllegalArgumentException.class, () -> keyPair.getPrivateKey().calculateRoot(new LMOTSPublicKey[0]));
+        assertThrows(IllegalArgumentException.class,
+                () -> keyPair.getPrivateKey().calculateRoot(new LMOTSPublicKey[0]));
     }
 
     @Test

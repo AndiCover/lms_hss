@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @SuppressWarnings("PMD.SystemPrintln")
-public final class HSSPrivateKeyImplTest {
+final class HSSPrivateKeyImplTest {
 
     @Test
     void testEqualsAndHashcode() {
