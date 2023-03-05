@@ -6,7 +6,7 @@ import java.security.NoSuchAlgorithmException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public final class MessageDigestCacheTest {
+final class MessageDigestCacheTest {
 
     @Test
     void testSimpleCache() throws NoSuchAlgorithmException {

@@ -22,7 +22,7 @@ import static at.andicover.lmots.api.LMOTSType.LMOTS_SHAKE_N32_W8;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class LMOTSTypeTest {
+final class LMOTSTypeTest {
 
     @Test
     void testLookup() {

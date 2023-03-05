@@ -14,9 +14,9 @@ import at.andicover.lms.api.LMSSignature;
 import at.andicover.lms.api.LMSType;
 import at.andicover.util.MathUtil;
 import at.andicover.util.ThreadUtil;
-import net.jcip.annotations.ThreadSafe;
 
 import javax.annotation.Nonnull;
+import javax.annotation.concurrent.ThreadSafe;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

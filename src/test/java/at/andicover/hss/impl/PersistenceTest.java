@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class PersistenceTest {
+final class PersistenceTest {
 
     private static final String KEY_FILENAME = "persistance_test.privkey";
 

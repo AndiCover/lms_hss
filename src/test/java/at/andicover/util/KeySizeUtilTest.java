@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SuppressWarnings({"PMD.NcssCount", "PMD.UnusedAssignment", "PMD.SystemPrintln", "PMD.JUnitTestsShouldIncludeAssert",
         "PMD.ExcessiveMethodLength"})
-public final class KeySizeUtilTest {
+final class KeySizeUtilTest {
 
     private static final String MESSAGE =
             "The six episodes of the first season of Parks and Recreation originally aired in the United States on"

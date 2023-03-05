@@ -19,6 +19,7 @@ import static at.andicover.lms.api.LMSType.LMS_SHA256_M32_H5;
 import static at.andicover.lms.api.LMSType.LMS_SHAKE_M24_H5;
 import static at.andicover.lms.api.LMSType.LMS_SHAKE_M32_H5;
 
+@SuppressWarnings("PMD.TestClassWithoutTestCases")
 public final class TestUtil {
 
     private TestUtil() {

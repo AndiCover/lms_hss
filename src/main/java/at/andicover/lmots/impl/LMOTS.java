@@ -7,9 +7,9 @@ import at.andicover.lmots.api.LMOTSPublicKey;
 import at.andicover.lmots.api.LMOTSSignature;
 import at.andicover.lmots.api.LMOTSType;
 import at.andicover.util.MathUtil;
-import net.jcip.annotations.ThreadSafe;
 
 import javax.annotation.Nonnull;
+import javax.annotation.concurrent.ThreadSafe;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;

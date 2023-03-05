@@ -12,7 +12,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @SuppressWarnings("PMD.SystemPrintln")
-public final class LMOTSPrivateKeyImplTest {
+final class LMOTSPrivateKeyImplTest {
+
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
     @Test
     void testEqualsAndHashcode() {
@@ -45,9 +47,8 @@ public final class LMOTSPrivateKeyImplTest {
 
     @Test
     void testSeed() throws NoSuchAlgorithmException {
-        final SecureRandom secureRandom = new SecureRandom();
         final LMOTSPrivateKey lmotsPrivateKey =
-                new LMOTSPrivateKeyImpl(LMOTSType.LMOTS_SHA256_N32_W1, new byte[0], 2, secureRandom.generateSeed(32));
+                new LMOTSPrivateKeyImpl(LMOTSType.LMOTS_SHA256_N32_W1, new byte[0], 2, SECURE_RANDOM.generateSeed(32));
         assertArrayEquals(lmotsPrivateKey.getKeys(), lmotsPrivateKey.getKeys());
     }
 }

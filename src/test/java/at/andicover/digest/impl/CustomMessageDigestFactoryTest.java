@@ -7,7 +7,7 @@ import java.security.NoSuchAlgorithmException;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class CustomMessageDigestFactoryTest {
+final class CustomMessageDigestFactoryTest {
 
     @Test
     void testValidAlgorithms() throws NoSuchAlgorithmException {

@@ -157,7 +157,7 @@ final class LMSPrivateKeyImpl implements LMSPrivateKey {
 
     @Override
     @Nonnull
-    @SuppressWarnings("PMD.CyclomaticComplexity")
+    @SuppressWarnings({"PMD.CyclomaticComplexity", "PMD.CognitiveComplexity"})
     public byte[][] getPath(final int nodeNumber) throws NoSuchAlgorithmException {
         final int keys = MathUtil.pow(lmsType.getH());
         final byte[][] tree = buildTree(keys);
