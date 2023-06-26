@@ -66,7 +66,7 @@ dependencies {
     implementation('com.google.code.findbugs:jsr305:3.0.2')
     implementation('org.apache.commons:commons-lang3:3.12.0')
     implementation('commons-io:commons-io:2.11.0')
-    implementation('commons-codec:commons-codec:1.15')
+    implementation('commons-codec:commons-codec:1.16.0')
     implementation('com.github.spotbugs:spotbugs-annotations:4.7.3')
 
     testImplementation(platform('org.junit:junit-bom:5.9.2'))
